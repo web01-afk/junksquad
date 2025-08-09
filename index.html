@@ -1,34 +1,383 @@
-<!-- HEADER -->
-<header class="sticky top-0 z-50 border-b border-white/10 bg-[#090b1bd9] backdrop-blur">
-  <div class="mx-auto max-w-6xl px-4">
-    <div class="flex items-center justify-between py-3">
-      <!-- LOGO ONLY -->
-      <a href="#home" aria-label="JunkSquad Home">
-        <img src="logo.png" alt="JunkSquad logo" class="site-logo" />
-      </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <!-- Navigation -->
-      <nav class="hidden gap-6 md:flex" aria-label="Main">
-        <a href="#services" class="opacity-90 hover:opacity-100">Services</a>
-        <a href="#areas" class="opacity-90 hover:opacity-100">Service Areas</a>
-        <a href="#gallery" class="opacity-90 hover:opacity-100">Gallery</a>
-        <a href="#reviews" class="opacity-90 hover:opacity-100">Reviews</a>
-        <a href="#contact" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">Get a Quote</a>
-      </nav>
+  <title>JunkSquad | Junk Removal in Scottsdale & Phoenix, AZ — Same-Day Hauling, Cleanouts, Yard Waste</title>
+  <meta name="description" content="JunkSquad provides fast, affordable junk removal in Scottsdale, Phoenix, and nearby cities. Same-day pickups, garage cleanouts, furniture & appliance removal, yard waste, construction debris. Call 201-333-3333 for a free estimate." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://web01-afk.github.io/junksquad/" />
 
-      <!-- Mobile Menu Button -->
-      <button id="hamburger" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h16M3 11h16M3 16h16"/></svg>
-      </button>
-    </div>
+  <!-- Open Graph / Twitter -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="JunkSquad" />
+  <meta property="og:title" content="JunkSquad — Junk Removal in Scottsdale & Phoenix" />
+  <meta property="og:description" content="Same-day junk removal, cleanouts, and curbside pickups. Licensed & insured. Upfront pricing." />
+  <meta property="og:url" content="https://web01-afk.github.io/junksquad/" />
+  <meta property="og:image" content="truck-and-team.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Mobile Nav -->
-    <nav id="mobileNav" class="md:hidden hidden flex-col gap-2 pb-3" aria-label="Mobile">
-      <a href="#services" class="px-3 py-2 rounded hover:bg-white/10">Services</a>
-      <a href="#areas" class="px-3 py-2 rounded hover:bg-white/10">Service Areas</a>
-      <a href="#gallery" class="px-3 py-2 rounded hover:bg-white/10">Gallery</a>
-      <a href="#reviews" class="px-3 py-2 rounded hover:bg-white/10">Reviews</a>
-      <a href="#contact" class="px-3 py-2 rounded bg-white/10 hover:bg-white/20">Get a Quote</a>
-    </nav>
+  <meta name="theme-color" content="#070816" />
+  <link rel="icon" href="truck-and-team.png" />
+
+  <!-- Fonts + Tailwind CDN -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Manrope:wght@600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Manrope','Inter','sans-serif'] },
+          colors: { bg:'#070816' },
+          boxShadow: { glow: '0 20px 40px rgba(0,0,0,.35)' },
+          keyframes: {
+            float:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(10px)'}},
+            fadeUp:{'0%':{opacity:0,transform:'translateY(16px)'},'100%':{opacity:1,transform:'translateY(0)'}}
+          },
+          animation:{ float:'float 4s ease-in-out infinite', fadeUp:'fadeUp .7s ease forwards' }
+        }
+      }
+    }
+  </script>
+
+  <!-- Minimal inline style for background + glass + crisp logo -->
+  <style>
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #3a2bff22, transparent 60%),
+        radial-gradient(1000px 500px at 100% 0%, #00ffc855, transparent 60%),
+        #070816;
+    }
+    .glass{backdrop-filter:saturate(160%) blur(10px); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08)}
+    .reveal{opacity:0; transform:translateY(16px)}
+    .reveal.show{opacity:1; transform:translateY(0); transition:opacity .7s ease, transform .7s ease}
+
+    /* LOGO ONLY: preserve aspect, crisp edges, no rounding/shadow */
+    .site-logo{
+      height: clamp(40px, 4.5vw, 56px);
+      width: auto;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+  </style>
+</head>
+<body class="text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- Decorative blobs -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-24 -left-24 h-[36rem] w-[36rem] rounded-full bg-indigo-600/20 blur-3xl"></div>
+    <div class="absolute top-20 right-0 h-[28rem] w-[28rem] rounded-full bg-emerald-400/20 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-sky-400/20 blur-3xl"></div>
   </div>
-</header>
+
+  <!-- HEADER (logo only) -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#090b1bd9] backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-center justify-between py-3">
+        <a href="#home" aria-label="JunkSquad Home">
+          <img src="logo.png" alt="JunkSquad logo" class="site-logo" />
+        </a>
+
+        <nav class="hidden gap-6 md:flex" aria-label="Main">
+          <a href="#services" class="opacity-90 hover:opacity-100">Services</a>
+          <a href="#areas" class="opacity-90 hover:opacity-100">Service Areas</a>
+          <a href="#gallery" class="opacity-90 hover:opacity-100">Gallery</a>
+          <a href="#reviews" class="opacity-90 hover:opacity-100">Reviews</a>
+          <a href="#contact" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">Get a Quote</a>
+        </nav>
+
+        <button id="hamburger" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h16M3 11h16M3 16h16"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <nav id="mobileNav" class="md:hidden hidden flex-col gap-2 pb-3" aria-label="Mobile">
+        <a href="#services" class="px-3 py-2 rounded hover:bg-white/10">Services</a>
+        <a href="#areas" class="px-3 py-2 rounded hover:bg-white/10">Service Areas</a>
+        <a href="#gallery" class="px-3 py-2 rounded hover:bg-white/10">Gallery</a>
+        <a href="#reviews" class="px-3 py-2 rounded hover:bg-white/10">Reviews</a>
+        <a href="#contact" class="px-3 py-2 rounded bg-white/10 hover:bg-white/20">Get a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="relative">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+      <div class="flex flex-col justify-center">
+        <h1 class="font-display text-4xl leading-tight sm:text-5xl md:text-6xl">
+          Junk Removal in <span class="text-emerald-300">Scottsdale</span> & <span class="text-sky-300">Phoenix</span>, AZ
+        </h1>
+        <p class="mt-4 text-lg text-white/80">
+          Same-day hauling, garage cleanouts, furniture & appliance removal, yard waste, construction debris, and more. Licensed & insured with upfront pricing.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="tel:12013333333" class="rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-black shadow-glow hover:brightness-110 transition">Call 201-333-3333</a>
+          <a href="#contact" class="rounded-xl border border-white/20 px-5 py-3 font-semibold hover:bg-white/10 transition">Get Free Estimate</a>
+        </div>
+        <ul class="mt-5 flex flex-wrap gap-5 text-white/80" aria-label="Trust badges">
+          <li>Licensed & Insured</li>
+          <li>Upfront Pricing</li>
+          <li>Eco-Friendly Disposal</li>
+        </ul>
+      </div>
+      <div class="relative">
+        <div class="glass rounded-2xl shadow-glow overflow-hidden -rotate-2 reveal" aria-label="Same-day available image card">
+          <img src="crew-loading-truck.png" alt="JunkSquad crew loading items into a truck" class="h-80 w-full object-cover" />
+          <div class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-sm font-semibold">Same-Day Available</div>
+        </div>
+        <div class="glass rounded-2xl shadow-glow overflow-hidden rotate-3 w-3/4 md:w-2/3 absolute -top-8 right-6 animate-float" aria-hidden="true">
+          <img src="clean-garage.png" alt="Clean garage after junk removal" class="h-56 w-full object-cover" />
+        </div>
+      </div>
+    </div>
+    <a href="#services" class="absolute bottom-3 left-1/2 -translate-x-1/2 text-sky-300 animate-bounce" aria-label="Scroll to services">▼</a>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">Junk Removal Services in Scottsdale, Phoenix & Nearby</h2>
+      <p class="mt-1 text-white/70">From single-item pickups to full property cleanouts, we handle it all.</p>
+
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Furniture & Appliance Removal</h3>
+          <p class="mt-1 text-white/80">Couches, mattresses, refrigerators, washers/dryers, TVs, and more. We lift, load, and dispose responsibly.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Garage, Estate & Hoarder Cleanouts</h3>
+          <p class="mt-1 text-white/80">Declutter fast with sorting, loading, and sweep-up included. Clear garages, attics, sheds, and estates.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Construction Debris Hauling</h3>
+          <p class="mt-1 text-white/80">Remodel waste, wood, drywall, doors, and scrap. Contractor-friendly scheduling and transparent pricing.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Yard Waste & Green Debris</h3>
+          <p class="mt-1 text-white/80">Branches, brush, soil, fencing, and outdoor clutter. Eco-conscious disposal whenever possible.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Hot Tubs, Playsets & Light Demo</h3>
+          <p class="mt-1 text-white/80">Careful teardown and haul-away for bulky backyard items and small sheds.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Office & Commercial Cleanouts</h3>
+          <p class="mt-1 text-white/80">Desks, e-waste, pallets, and warehouse cleanups for businesses and property managers.</p>
+        </article>
+      </div>
+
+      <p class="mt-4 text-white/80">Not sure if we take it? <a href="#contact" class="text-emerald-300 underline-offset-2 hover:underline">Ask us—odds are we do.</a></p>
+    </div>
+  </section>
+
+  <!-- AREAS -->
+  <section id="areas" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">Service Areas in Maricopa County</h2>
+      <p class="mt-1 text-white/70">Scottsdale • Phoenix • Paradise Valley • Cave Creek • Tempe • Mesa • Glendale • Peoria • Arcadia & more</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span class="glass rounded-full px-4 py-2">Scottsdale, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Phoenix, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Paradise Valley, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Cave Creek, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Tempe, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Mesa, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Glendale, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Peoria, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Arcadia, AZ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="py-16 md:py-20">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-4 md:grid-cols-2">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl">Simple, Upfront Pricing</h2>
+        <p class="mt-1 text-white/70">Volume-based rates that include labor and dump fees.</p>
+        <ul class="mt-4 space-y-2 text-white/80">
+          <li>No surprises—free onsite estimates</li>
+          <li>Text or email photos for a fast quote</li>
+          <li>Discounts for curbside pickups</li>
+        </ul>
+        <div class="mt-6 flex gap-3">
+          <a href="mailto:service@junksquad.com?subject=Junk%20Removal%20Estimate" class="rounded-xl bg-white/10 px-5 py-3 font-semibold hover:bg-white/20 transition">Email Photos</a>
+          <a href="tel:12013333333" class="rounded-xl border border-white/20 px-5 py-3 font-semibold hover:bg-white/10 transition">Call 201-333-3333</a>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-glow reveal">
+        <div class="flex items-center justify-between border-b border-white/10 py-3"><span>Single Item</span><strong>From $79</strong></div>
+        <div class="flex items-center justify-between border-b border-white/10 py-3"><span>¼ Truck</span><strong>From $159</strong></div>
+        <div class="flex items-center justify-between border-b border-white/10 py-3"><span>½ Truck</span><strong>From $299</strong></div>
+        <div class="flex items-center justify-between py-3"><span>Full Truck</span><strong>From $549</strong></div>
+        <p class="mt-2 text-sm text-white/60">*Estimates only. Final price confirmed onsite.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">Before & After: Recent Junk Removal Jobs</h2>
+      <p class="mt-1 text-white/70">Real work from our crews in Scottsdale, Phoenix, and nearby areas.</p>
+      <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
+        <img src="truck-and-team.png" alt="JunkSquad truck and team ready for pickup" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="garage-cleanout.png" alt="Garage cleanout with items sorted for disposal" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="yard-waste-removal.png" alt="Yard waste and brush stacked for haul-away" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="construction-debris.png" alt="Construction debris cleanup after a remodel" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="curbside-pickup.png" alt="Curbside pickup of bulky items" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">Customer Reviews</h2>
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        <blockquote class="glass rounded-2xl p-5 shadow-glow reveal">“They cleared my garage in under an hour. Professional and polite.”<cite class="block pt-3 text-white/70">— Sarah K., Scottsdale</cite></blockquote>
+        <blockquote class="glass rounded-2xl p-5 shadow-glow reveal">“Upfront pricing and they swept up after. Will use again!”<cite class="block pt-3 text-white/70">— Mike R., Phoenix</cite></blockquote>
+        <blockquote class="glass rounded-2xl p-5 shadow-glow reveal">“Booked same-day and they handled everything. Stress-free.”<cite class="block pt-3 text-white/70">— Jenna P., Paradise Valley</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl grid grid-cols-1 gap-10 px-4 md:grid-cols-2">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl">Book Your Junk Removal Pickup</h2>
+        <p class="mt-1 text-white/70">Call, text, or send photos for a quick estimate.</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <a class="glass rounded-2xl p-5 shadow-glow hover:bg-white/10 transition" href="tel:12013333333" aria-label="Call JunkSquad">
+            <h3 class="text-xl font-semibold">Call</h3><p class="text-white/80">201-333-3333</p>
+          </a>
+          <a class="glass rounded-2xl p-5 shadow-glow hover:bg-white/10 transition" href="mailto:service@junksquad.com" aria-label="Email JunkSquad">
+            <h3 class="text-xl font-semibold">Email</h3><p class="text-white/80">service@junksquad.com</p>
+          </a>
+        </div>
+        <p class="mt-3 text-white/60">Hours: Mon–Sat 7am–7pm • Sun by appointment</p>
+      </div>
+
+      <!-- Replace 'your-id' with your Formspree ID -->
+      <form class="glass rounded-2xl p-6 shadow-glow reveal" action="https://formspree.io/f/your-id" method="POST" name="contact">
+        <label class="block">Name
+          <input class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" type="text" name="name" placeholder="Your name" required />
+        </label>
+        <label class="mt-3 block">Phone
+          <input class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" type="tel" name="phone" placeholder="(###) ###-####" required />
+        </label>
+        <label class="mt-3 block">City
+          <input class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" type="text" name="city" placeholder="e.g., Scottsdale" />
+        </label>
+        <label class="mt-3 block">Describe Your Junk
+          <textarea class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" name="message" rows="4" placeholder="What needs to go?"></textarea>
+        </label>
+        <button class="mt-4 w-full rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-black hover:brightness-110 transition" type="submit">Request Estimate</button>
+        <p class="mt-2 text-sm text-white/60">Prefer email? <a class="text-emerald-300 underline-offset-2 hover:underline" href="mailto:service@junksquad.com">service@junksquad.com</a></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 mt-6">
+    <div class="mx-auto max-w-6xl px-4 py-10 grid gap-6 md:grid-cols-3">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="JunkSquad logo" class="site-logo" />
+        <p class="text-white/80">Fast, friendly junk removal across Scottsdale, Phoenix & nearby areas.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold">Contact</h4>
+        <p class="text-white/80"><a href="tel:12013333333" class="hover:underline">201-333-3333</a><br><a href="mailto:service@junksquad.com" class="hover:underline">service@junksquad.com</a></p>
+      </div>
+      <div>
+        <h4 class="font-semibold">Quick Links</h4>
+        <p class="text-white/80"><a href="#services" class="hover:underline">Services</a> • <a href="#areas" class="hover:underline">Areas</a> • <a href="#gallery" class="hover:underline">Gallery</a> • <a href="#contact" class="hover:underline">Book</a></p>
+      </div>
+    </div>
+    <div class="mx-auto max-w-6xl px-4 pb-8 text-sm text-white/60">© <span id="year"></span> JunkSquad. All rights reserved.</div>
+  </footer>
+
+  <!-- JSON-LD (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "JunkSquad",
+    "url": "https://web01-afk.github.io/junksquad/",
+    "inLanguage": "en-US",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://web01-afk.github.io/junksquad/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "JunkSquad",
+    "image": "truck-and-team.png",
+    "logo": "logo.png",
+    "telephone": "+1-201-333-3333",
+    "email": "service@junksquad.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Scottsdale", "addressRegion": "AZ", "addressCountry": "US" },
+    "areaServed": ["Scottsdale AZ","Phoenix AZ","Paradise Valley AZ","Cave Creek AZ","Tempe AZ","Mesa AZ","Glendale AZ","Peoria AZ","Arcadia AZ"],
+    "url": "https://web01-afk.github.io/junksquad/",
+    "description": "Same-day junk removal and hauling in Scottsdale, Phoenix and nearby cities. Furniture, appliances, cleanouts, yard waste, and construction debris.",
+    "openingHours": "Mo-Sa 07:00-19:00",
+    "priceRange": "$$"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How much does junk removal cost in Scottsdale?","acceptedAnswer":{"@type":"Answer","text":"Pricing is volume-based and includes labor and dump fees. We provide free onsite estimates; typical jobs range from single-item pickups to full truck loads."}},
+      {"@type":"Question","name":"Do you offer same-day junk removal?","acceptedAnswer":{"@type":"Answer","text":"Yes—call 201-333-3333 and we’ll do our best to schedule a same-day pickup, subject to availability."}},
+      {"@type":"Question","name":"What items do you take?","acceptedAnswer":{"@type":"Answer","text":"We handle furniture, appliances, garage and estate cleanouts, yard waste, construction debris, hot tubs and playsets (light demo), and commercial cleanouts."}}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://web01-afk.github.io/junksquad/"},
+      {"@type":"ListItem","position":2,"name":"Services","item":"https://web01-afk.github.io/junksquad/#services"},
+      {"@type":"ListItem","position":3,"name":"Contact","item":"https://web01-afk.github.io/junksquad/#contact"}
+    ]
+  }
+  </script>
+
+  <!-- Utilities -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const btn = document.getElementById('hamburger');
+    const mobile = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => {
+      const open = mobile.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+      });
+    }, { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
