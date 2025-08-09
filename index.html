@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>JunkSquad — Junk Removal in Scottsdale, Phoenix & Surrounding Areas</title>
+  <meta name="description" content="Fast, affordable junk removal in Scottsdale, Phoenix, Paradise Valley, and surrounding areas. Same-day hauling, cleanouts, yard waste & more. Call 201-333-3333." />
+  <meta name="keywords" content="junk removal Scottsdale, junk removal Phoenix, hauling, appliance removal, furniture removal, cleanouts, yard waste" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="JunkSquad — Junk Removal in Scottsdale & Phoenix" />
+  <meta property="og:description" content="Same-day junk removal. Licensed & insured. Call 201-333-3333." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="image1.jpg" />
+  <meta property="og:url" content="https://<your-github-username>.github.io/<your-repo>/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="image1.jpg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Manrope:wght@600;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind via CDN (no local CSS file) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display:['Manrope','Inter','sans-serif'] },
+          colors: {
+            bg: '#070816', card:'#0f1126', accent:'#7cf7c9', accent2:'#8bb8ff'
+          },
+          boxShadow: { glow: '0 20px 40px rgba(0,0,0,0.35)' },
+          borderRadius: { xl2: '1.25rem' },
+          keyframes: {
+            float: { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(10px)' } },
+            blob: { '0%,100%':{ transform:'translate(0,0) scale(1)' }, '50%':{ transform:'translate(20px,-10px) scale(1.05)' } },
+            fadeUp: { '0%':{ opacity:0, transform:'translateY(16px)' }, '100%':{ opacity:1, transform:'translateY(0)' } }
+          },
+          animation: {
+            float:'float 4s ease-in-out infinite',
+            blob:'blob 18s ease-in-out infinite',
+            fadeUp:'fadeUp .7s ease forwards'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Tiny inline utilities for glass + gradient background -->
+  <style>
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #3a2bff22, transparent 60%),
+        radial-gradient(1000px 500px at 100% 0%, #00ffc855, transparent 60%),
+        #070816;
+    }
+    .glass{backdrop-filter:saturate(160%) blur(10px); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08)}
+    .reveal{opacity:0; transform:translateY(16px)}
+    .reveal.show{opacity:1; transform:translateY(0); transition:opacity .7s ease, transform .7s ease}
+  </style>
+</head>
+<body class="text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- Blobby ambient shapes -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-24 -left-24 h-[36rem] w-[36rem] rounded-full bg-indigo-600/20 blur-3xl animate-blob"></div>
+    <div class="absolute top-20 right-0 h-[28rem] w-[28rem] rounded-full bg-emerald-400/20 blur-3xl animate-blob"></div>
+    <div class="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-sky-400/20 blur-3xl animate-blob"></div>
+  </div>
+
+  <!-- Topbar -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#090b1bd9] backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-center justify-between py-3">
+        <a href="#home" class="flex items-center gap-3 font-extrabold tracking-tight">
+          <img src="logo.jpg" alt="JunkSquad logo" class="h-10 w-auto rounded-lg shadow-glow" />
+          <span class="font-display text-xl">JunkSquad</span>
+        </a>
+        <nav class="hidden gap-6 md:flex">
+          <a href="#services" class="opacity-90 hover:opacity-100">Services</a>
+          <a href="#areas" class="opacity-90 hover:opacity-100">Service Areas</a>
+          <a href="#gallery" class="opacity-90 hover:opacity-100">Gallery</a>
+          <a href="#reviews" class="opacity-90 hover:opacity-100">Reviews</a>
+          <a href="#contact" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">Get a Quote</a>
+        </nav>
+        <button id="hamburger" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h16M3 11h16M3 16h16"/></svg>
+        </button>
+      </div>
+      <nav id="mobileNav" class="md:hidden hidden flex-col gap-2 pb-3">
+        <a href="#services" class="px-3 py-2 rounded hover:bg-white/10">Services</a>
+        <a href="#areas" class="px-3 py-2 rounded hover:bg-white/10">Service Areas</a>
+        <a href="#gallery" class="px-3 py-2 rounded hover:bg-white/10">Gallery</a>
+        <a href="#reviews" class="px-3 py-2 rounded hover:bg-white/10">Reviews</a>
+        <a href="#contact" class="px-3 py-2 rounded bg-white/10 hover:bg-white/20">Get a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+      <div class="flex flex-col justify-center">
+        <h1 class="font-display text-4xl leading-tight sm:text-5xl md:text-6xl">
+          Junk Removal in <span class="text-emerald-300">Scottsdale</span> & <span class="text-sky-300">Phoenix</span>
+        </h1>
+        <p class="mt-4 text-lg text-white/80">
+          Same-day hauling, cleanouts, and curbside pickups. Fast. Friendly. Affordable.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="tel:12013333333" class="rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-black shadow-glow hover:brightness-110 transition">Call 201-333-3333</a>
+          <a href="#contact" class="rounded-xl border border-white/20 px-5 py-3 font-semibold hover:bg-white/10 transition">Get Free Estimate</a>
+        </div>
+        <ul class="mt-5 flex flex-wrap gap-5 text-white/80">
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-400"></span>Licensed & Insured</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-sky-400"></span>Upfront Pricing</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-indigo-400"></span>Eco-friendly Disposal</li>
+        </ul>
+      </div>
+      <div class="relative">
+        <div class="glass rounded-xl2 shadow-glow overflow-hidden rotate-[-2deg] reveal">
+          <img src="image2.jpg" alt="Crew loading junk into truck" class="h-80 w-full object-cover">
+          <div class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-sm font-semibold">Same-Day Available</div>
+        </div>
+        <div class="glass rounded-xl2 shadow-glow overflow-hidden rotate-[3deg] w-3/4 md:w-2/3 absolute -top-8 right-6 animate-float">
+          <img src="image3.jpg" alt="Clean garage after junk removal" class="h-56 w-full object-cover">
+        </div>
+      </div>
+    </div>
+    <a href="#services" class="absolute bottom-3 left-1/2 -translate-x-1/2 text-sky-300 animate-bounce">▼</a>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">What We Take</h2>
+      <p class="mt-1 text-white/70">From single items to full property cleanouts.</p>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Furniture & Appliances</h3>
+          <p class="mt-1 text-white/70">Couches, mattresses, fridges, washers/dryers, TVs & more.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Garage & Estate Cleanouts</h3>
+          <p class="mt-1 text-white/70">Moving out or clearing space? We handle sorting and hauling.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Construction Debris</h3>
+          <p class="mt-1 text-white/70">Remodel waste, wood, drywall, doors, fixtures, and scrap.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Yard Waste</h3>
+          <p class="mt-1 text-white/70">Branches, brush, soil, fencing, and outdoor clutter.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Hot Tubs & Playsets</h3>
+          <p class="mt-1 text-white/70">Light demo and haul-away for bulky backyard items.</p>
+        </article>
+        <article class="glass rounded-2xl p-5 shadow-glow reveal">
+          <h3 class="text-xl font-semibold">Office & Commercial</h3>
+          <p class="mt-1 text-white/70">Desks, e-waste, pallets, and cleanout services for businesses.</p>
+        </article>
+      </div>
+      <p class="mt-4 text-white/80">Not sure if we take it? <a href="#contact" class="text-emerald-300 underline-offset-2 hover:underline">Ask us—odds are we do.</a></p>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section id="areas" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">Proudly Serving</h2>
+      <p class="mt-1 text-white/70">Scottsdale • Phoenix • Paradise Valley • Cave Creek • Tempe • Mesa • Glendale • Peoria • Arcadia & more</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span class="glass rounded-full px-4 py-2">Scottsdale, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Phoenix, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Paradise Valley, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Cave Creek, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Tempe, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Mesa, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Glendale, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Peoria, AZ</span>
+        <span class="glass rounded-full px-4 py-2">Arcadia, AZ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-16 md:py-20">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-4 md:grid-cols-2">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl">Simple, Upfront Pricing</h2>
+        <p class="mt-1 text-white/70">Volume-based rates + all labor & dump fees included.</p>
+        <ul class="mt-4 space-y-2">
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>No surprises—free onsite estimates</li>
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Text us a photo for a fast quote</li>
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Discounts for curbside pickups</li>
+        </ul>
+        <div class="mt-6 flex gap-3">
+          <a href="mailto:service@junksquad.com?subject=Junk%20Removal%20Estimate" class="rounded-xl bg-white/10 px-5 py-3 font-semibold hover:bg-white/20 transition">Email Photos</a>
+          <a href="tel:12013333333" class="rounded-xl border border-white/20 px-5 py-3 font-semibold hover:bg-white/10 transition">Call 201-333-3333</a>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-glow reveal">
+        <div class="flex items-center justify-between border-b border-white/10 py-3"><span>Single Item</span><strong>From $79</strong></div>
+        <div class="flex items-center justify-between border-b border-white/10 py-3"><span>¼ Truck</span><strong>From $159</strong></div>
+        <div class="flex items-center justify-between border-b border-white/10 py-3"><span>½ Truck</span><strong>From $299</strong></div>
+        <div class="flex items-center justify-between py-3"><span>Full Truck</span><strong>From $549</strong></div>
+        <p class="mt-2 text-sm text-white/60">*Ballpark estimates. Final price confirmed onsite.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">Recent Work</h2>
+      <p class="mt-1 text-white/70">Swipe through before/after moments and happy hauls.</p>
+      <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
+        <img src="image1.jpg" alt="Truck and team" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="image2.jpg" alt="Garage cleanout" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="image3.jpg" alt="Yard waste removal" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="image4.jpg" alt="Construction debris" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+        <img src="image5.jpg" alt="Curbside pickup" class="h-40 w-full rounded-xl object-cover shadow-glow reveal" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="font-display text-3xl md:text-4xl">5-Star Service</h2>
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        <blockquote class="glass rounded-2xl p-5 shadow-glow reveal">“They cleared my garage in under an hour. Professional and polite.”<cite class="block pt-3 text-white/70">— Sarah K., Scottsdale</cite></blockquote>
+        <blockquote class="glass rounded-2xl p-5 shadow-glow reveal">“Upfront pricing and they swept up after. Will use again!”<cite class="block pt-3 text-white/70">— Mike R., Phoenix</cite></blockquote>
+        <blockquote class="glass rounded-2xl p-5 shadow-glow reveal">“Booked same-day and they handled everything. Stress-free.”<cite class="block pt-3 text-white/70">— Jenna P., Paradise Valley</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl grid grid-cols-1 gap-10 px-4 md:grid-cols-2">
+      <div>
+        <h2 class="font-display text-3xl md:text-4xl">Book Your Pickup</h2>
+        <p class="mt-1 text-white/70">Call, text, or send photos for a fast estimate.</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <a class="glass rounded-2xl p-5 shadow-glow hover:bg-white/10 transition" href="tel:12013333333">
+            <h3 class="text-xl font-semibold">Call</h3><p class="text-white/80">201-333-3333</p>
+          </a>
+          <a class="glass rounded-2xl p-5 shadow-glow hover:bg-white/10 transition" href="mailto:service@junksquad.com">
+            <h3 class="text-xl font-semibold">Email</h3><p class="text-white/80">service@junksquad.com</p>
+          </a>
+        </div>
+        <p class="mt-3 text-white/60">Hours: Mon–Sat 7am–7pm | Sun by appointment</p>
+      </div>
+
+      <!-- Formspree: replace 'your-id' with your Formspree form ID -->
+      <form class="glass rounded-2xl p-6 shadow-glow reveal" action="https://formspree.io/f/your-id" method="POST">
+        <label class="block">Name
+          <input class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" type="text" name="name" placeholder="Your name" required />
+        </label>
+        <label class="mt-3 block">Phone
+          <input class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" type="tel" name="phone" placeholder="(###) ###-####" required />
+        </label>
+        <label class="mt-3 block">City
+          <input class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" type="text" name="city" placeholder="e.g., Scottsdale" />
+        </label>
+        <label class="mt-3 block">Describe Your Junk
+          <textarea class="mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:border-emerald-400" name="message" rows="4" placeholder="What needs to go?"></textarea>
+        </label>
+        <button class="mt-4 w-full rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-black hover:brightness-110 transition" type="submit">Request Estimate</button>
+        <p class="mt-2 text-sm text-white/60">Prefer email? <a class="text-emerald-300 underline-offset-2 hover:underline" href="mailto:service@junksquad.com">service@junksquad.com</a></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-10 grid gap-6 md:grid-cols-3">
+      <div>
+        <img src="logo.jpg" alt="JunkSquad logo" class="h-9 w-auto rounded-lg shadow-glow" />
+        <p class="mt-2 text-white/80">Fast, friendly junk removal across Scottsdale, Phoenix & nearby areas.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold">Contact</h4>
+        <p class="text-white/80"><a href="tel:12013333333" class="hover:underline">201-333-3333</a><br><a href="mailto:service@junksquad.com" class="hover:underline">service@junksquad.com</a></p>
+      </div>
+      <div>
+        <h4 class="font-semibold">Links</h4>
+        <p class="text-white/80"><a href="#services" class="hover:underline">Services</a> • <a href="#areas" class="hover:underline">Areas</a> • <a href="#gallery" class="hover:underline">Gallery</a> • <a href="#contact" class="hover:underline">Book</a></p>
+      </div>
+    </div>
+    <div class="mx-auto max-w-6xl px-4 pb-8 text-sm text-white/60">© <span id="year"></span> JunkSquad. All rights reserved.</div>
+  </footer>
+
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "JunkSquad",
+    "image": "image1.jpg",
+    "telephone": "+1-201-333-3333",
+    "email": "service@junksquad.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Scottsdale", "addressRegion": "AZ", "addressCountry": "US" },
+    "areaServed": ["Scottsdale AZ","Phoenix AZ","Paradise Valley AZ","Cave Creek AZ","Tempe AZ","Mesa AZ","Glendale AZ","Peoria AZ","Arcadia AZ"],
+    "url": "https://<your-github-username>.github.io/<your-repo>/",
+    "description": "Same-day junk removal and hauling in Scottsdale, Phoenix and nearby cities.",
+    "openingHours": "Mo-Sa 07:00-19:00"
+  }
+  </script>
+
+  <!-- JS: mobile menu, year, and reveal-on-scroll animations -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const btn = document.getElementById('hamburger');
+    const mobile = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => {
+      const open = mobile.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+      });
+    }, { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
