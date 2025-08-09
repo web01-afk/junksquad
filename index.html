@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>JunkSquad | Junk Removal in Scottsdale & Phoenix, AZ — Same-Day Hauling, Cleanouts, Yard Waste</title>
   <meta name="description" content="JunkSquad provides fast, affordable junk removal in Scottsdale, Phoenix, and nearby cities. Same-day pickups, garage cleanouts, furniture & appliance removal, yard waste, construction debris. Call 201-333-3333 for a free estimate." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://web01-afk.github.io/junksquad/" />
 
   <!-- Open Graph / Twitter -->
-  <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="JunkSquad" />
   <meta property="og:title" content="JunkSquad — Junk Removal in Scottsdale & Phoenix" />
@@ -43,7 +41,7 @@
     }
   </script>
 
-  <!-- Minimal inline style for background + glass + crisp logo -->
+  <!-- Minimal inline style -->
   <style>
     body{
       background:
@@ -55,16 +53,18 @@
     .reveal{opacity:0; transform:translateY(16px)}
     .reveal.show{opacity:1; transform:translateY(0); transition:opacity .7s ease, transform .7s ease}
 
-    /* LOGO ONLY: preserve aspect, crisp edges, no rounding/shadow */
+    /* LOGO — no background at all; keep aspect; subtle glow to separate from dark bg */
     .site-logo{
       height: clamp(40px, 4.5vw, 56px);
       width: auto;
       display: block;
+      background: transparent !important;
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
     }
+    /* ensure the anchor around the logo has no bg */
+    .brand-link{display:block; background:transparent !important}
   </style>
 </head>
 <body class="text-white font-sans antialiased overflow-x-hidden">
@@ -76,11 +76,11 @@
     <div class="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-sky-400/20 blur-3xl"></div>
   </div>
 
-  <!-- HEADER (logo only) -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#090b1bd9] backdrop-blur">
+  <!-- HEADER (logo only, zero background) -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#060714e0] backdrop-blur">
     <div class="mx-auto max-w-6xl px-4">
       <div class="flex items-center justify-between py-3">
-        <a href="#home" aria-label="JunkSquad Home">
+        <a href="#home" aria-label="JunkSquad Home" class="brand-link">
           <img src="logo.png" alt="JunkSquad logo" class="site-logo" />
         </a>
 
@@ -306,72 +306,20 @@
     <div class="mx-auto max-w-6xl px-4 pb-8 text-sm text-white/60">© <span id="year"></span> JunkSquad. All rights reserved.</div>
   </footer>
 
-  <!-- JSON-LD (SEO) -->
+  <!-- Minimal JSON-LD kept (optional) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "JunkSquad",
-    "url": "https://web01-afk.github.io/junksquad/",
-    "inLanguage": "en-US",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://web01-afk.github.io/junksquad/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "JunkSquad",
-    "image": "truck-and-team.png",
-    "logo": "logo.png",
-    "telephone": "+1-201-333-3333",
-    "email": "service@junksquad.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Scottsdale", "addressRegion": "AZ", "addressCountry": "US" },
-    "areaServed": ["Scottsdale AZ","Phoenix AZ","Paradise Valley AZ","Cave Creek AZ","Tempe AZ","Mesa AZ","Glendale AZ","Peoria AZ","Arcadia AZ"],
-    "url": "https://web01-afk.github.io/junksquad/",
-    "description": "Same-day junk removal and hauling in Scottsdale, Phoenix and nearby cities. Furniture, appliances, cleanouts, yard waste, and construction debris.",
-    "openingHours": "Mo-Sa 07:00-19:00",
-    "priceRange": "$$"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"How much does junk removal cost in Scottsdale?","acceptedAnswer":{"@type":"Answer","text":"Pricing is volume-based and includes labor and dump fees. We provide free onsite estimates; typical jobs range from single-item pickups to full truck loads."}},
-      {"@type":"Question","name":"Do you offer same-day junk removal?","acceptedAnswer":{"@type":"Answer","text":"Yes—call 201-333-3333 and we’ll do our best to schedule a same-day pickup, subject to availability."}},
-      {"@type":"Question","name":"What items do you take?","acceptedAnswer":{"@type":"Answer","text":"We handle furniture, appliances, garage and estate cleanouts, yard waste, construction debris, hot tubs and playsets (light demo), and commercial cleanouts."}}
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://web01-afk.github.io/junksquad/"},
-      {"@type":"ListItem","position":2,"name":"Services","item":"https://web01-afk.github.io/junksquad/#services"},
-      {"@type":"ListItem","position":3,"name":"Contact","item":"https://web01-afk.github.io/junksquad/#contact"}
-    ]
-  }
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"JunkSquad","image":"truck-and-team.png","logo":"logo.png","telephone":"+1-201-333-3333","email":"service@junksquad.com","address":{"@type":"PostalAddress","addressLocality":"Scottsdale","addressRegion":"AZ","addressCountry":"US"},"areaServed":["Scottsdale AZ","Phoenix AZ","Paradise Valley AZ","Cave Creek AZ","Tempe AZ","Mesa AZ","Glendale AZ","Peoria AZ","Arcadia AZ"],"url":"https://web01-afk.github.io/junksquad/","description":"Same-day junk removal and hauling in Scottsdale, Phoenix and nearby cities.","openingHours":"Mo-Sa 07:00-19:00","priceRange":"$$"}
   </script>
 
   <!-- Utilities -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const btn = document.getElementById('hamburger');
     const mobile = document.getElementById('mobileNav');
     btn?.addEventListener('click', () => {
       const open = mobile.classList.toggle('hidden');
       btn.setAttribute('aria-expanded', String(!open));
     });
-
     const io = new IntersectionObserver(entries=>{
       entries.forEach(e=>{
         if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
