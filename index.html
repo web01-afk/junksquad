@@ -44,7 +44,7 @@
     .reveal{opacity:0; transform:translateY(16px)}
     .reveal.show{opacity:1; transform:translateY(0); transition:opacity .7s ease, transform .7s ease}
 
-    /* Animations (CSS-based so they work regardless of Tailwind config load order) */
+    /* Animations */
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
     @keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
     @keyframes glowPulse{0%,100%{box-shadow:0 0 10px rgba(16,185,129,.0)}50%{box-shadow:0 0 24px rgba(16,185,129,.35)}}
@@ -117,7 +117,7 @@
           <a href="#services" class="opacity-90 hover:opacity-100">Services</a>
           <a href="#areas" class="opacity-90 hover:opacity-100">Service Areas</a>
           <a href="#gallery" class="opacity-90 hover:opacity-100">Gallery</a>
-          <a href="#reviews" class="opacity-90 hover:opacity-100">Reviews</a>
+          <!-- Removed Reviews link -->
           <a href="#contact" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">Get a Quote</a>
         </nav>
         <button id="hamburger" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
@@ -129,7 +129,7 @@
         <a href="#services" class="px-3 py-2 rounded hover:bg-white/10">Services</a>
         <a href="#areas" class="px-3 py-2 rounded hover:bg-white/10">Service Areas</a>
         <a href="#gallery" class="px-3 py-2 rounded hover:bg-white/10">Gallery</a>
-        <a href="#reviews" class="px-3 py-2 rounded hover:bg-white/10">Reviews</a>
+        <!-- Removed Reviews link -->
         <a href="#contact" class="px-3 py-2 rounded bg-white/10 hover:bg-white/20">Get a Quote</a>
       </nav>
     </div>
@@ -376,7 +376,7 @@
       const canvas = document.getElementById('particles');
       const ctx = canvas.getContext('2d');
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReduced) return; // respect reduced motion
+      if (prefersReduced) return;
 
       function size(){ canvas.width = innerWidth; canvas.height = innerHeight; }
       addEventListener('resize', size); size();
@@ -421,12 +421,12 @@
 
       function attach(){
         detach();
-        if (prefersReduced.matches || isMobile.matches) return; // disable on mobile / reduced motion
+        if (prefersReduced.matches || isMobile.matches) return;
         onScroll = () => {
           const y = window.pageYOffset || 0;
           parallaxEls.forEach(el => {
             const speed = parseFloat(el.dataset.speed || '0.05');
-            const shift = Math.max(-24, Math.min(24, y * speed)); // clamp to prevent overlap
+            const shift = Math.max(-24, Math.min(24, y * speed));
             el.style.transform = `translateY(${shift}px)`;
           });
         };
@@ -461,7 +461,6 @@
       }
 
       document.querySelectorAll('.lightboxable').forEach(el=>{
-        // make keyboard-focusable
         el.tabIndex = 0;
         const wrapper = el.closest('button,[role="button"]') || el;
         wrapper.addEventListener('click', ()=> open(el.currentSrc || el.src, el.alt));
@@ -470,7 +469,7 @@
 
       dlg.addEventListener('click', (e)=>{ if (e.target === dlg) close(); });
       closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); close(); });
-      dlg.addEventListener('cancel', (e)=>{ e.preventDefault(); close(); }); // Esc
+      dlg.addEventListener('cancel', (e)=>{ e.preventDefault(); close(); });
     })();
   </script>
 </body>
