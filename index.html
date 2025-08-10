@@ -21,25 +21,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Manrope:wght@600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Manrope','Inter','sans-serif'] },
-          colors: { bg:'#070816' },
-          boxShadow: { glow: '0 20px 40px rgba(0,0,0,.35)' },
-          keyframes: {
-            float:{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(10px)'}},
-            fadeUp:{'0%':{opacity:0,transform:'translateY(16px)'},'100%':{opacity:1,transform:'translateY(0)'}},
-            glowPulse:{'0%,100%':{boxShadow:'0 0 10px rgba(16,185,129,.0)'},'50%':{boxShadow:'0 0 24px rgba(16,185,129,.35)'}}
-          },
-          animation:{ float:'float 4s ease-in-out infinite', fadeUp:'fadeUp .7s ease forwards', glowPulse:'glowPulse 2.2s ease-in-out infinite' }
-        }
-      }
-    }
-  </script>
 
   <style>
+    /* Base */
+    :root { color-scheme: dark; }
+    html { scroll-behavior: smooth; }
     body{
       margin:0;
       background:
@@ -49,10 +35,21 @@
       color:#fff;
       font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       overflow-x:hidden;
+      -webkit-tap-highlight-color: transparent;
     }
+    img { display:block; max-width:100%; }
+
+    /* Glass + reveals */
     .glass{backdrop-filter:saturate(160%) blur(10px); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08)}
     .reveal{opacity:0; transform:translateY(16px)}
     .reveal.show{opacity:1; transform:translateY(0); transition:opacity .7s ease, transform .7s ease}
+
+    /* Animations (CSS-based so they work regardless of Tailwind config load order) */
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+    @keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+    @keyframes glowPulse{0%,100%{box-shadow:0 0 10px rgba(16,185,129,.0)}50%{box-shadow:0 0 24px rgba(16,185,129,.35)}}
+    .animate-glowPulse { animation: glowPulse 2.2s ease-in-out infinite; }
+
     .site-logo{
       height: clamp(110px, 13vw, 170px);
       width: auto;
@@ -63,6 +60,8 @@
       filter: drop-shadow(0 1px 0 rgba(0,0,0,.45));
       animation: fadeUp 1s ease forwards;
     }
+
+    /* Sticky header */
     .site-header{
       position: sticky; top:0; z-index:50;
       background: transparent;
@@ -74,20 +73,34 @@
       background: rgba(7,8,22,0.72);
       backdrop-filter: blur(6px);
     }
+
+    /* Gallery + parallax safety */
+    .hover-zoom { overflow: hidden; }
     .hover-zoom img{transition: transform 0.4s ease;}
     .hover-zoom:hover img{transform: scale(1.05);}
     .image-crop{aspect-ratio:4/3;object-fit:cover;}
     .parallax{will-change: transform;}
+
+    /* Anchor offset so sticky header doesn't cover section starts */
+    [id] { scroll-margin-top: 84px; }
+
+    /* Mobile: disable parallax transforms to prevent overlap */
+    @media (max-width: 767.98px) {
+      .parallax { transform: none !important; }
+    }
+
+    /* Canvas backdrop */
     canvas#particles{position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;}
-    html{scroll-behavior:smooth;}
   </style>
 </head>
 <body class="antialiased overflow-x-hidden">
 
-  <canvas id="particles"></canvas>
+  <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:bg-black/60 focus:text-white focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+
+  <canvas id="particles" aria-hidden="true"></canvas>
 
   <!-- decorative blobs (kept) -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
+  <div class="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
     <div class="absolute -top-24 -left-24 h-[36rem] w-[36rem] rounded-full bg-indigo-600/20 blur-3xl"></div>
     <div class="absolute top-20 right-0 h-[28rem] w-[28rem] rounded-full bg-emerald-400/20 blur-3xl"></div>
     <div class="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-sky-400/20 blur-3xl"></div>
@@ -98,7 +111,7 @@
     <div class="mx-auto max-w-6xl px-4">
       <div class="flex items-center justify-between py-3">
         <a href="#home" aria-label="JunkSquad Home">
-          <img src="logo.png" alt="JunkSquad logo" class="site-logo" />
+          <img src="logo.png" alt="JunkSquad logo" class="site-logo" fetchpriority="high" />
         </a>
         <nav class="hidden gap-6 md:flex" aria-label="Main">
           <a href="#services" class="opacity-90 hover:opacity-100">Services</a>
@@ -107,8 +120,8 @@
           <a href="#reviews" class="opacity-90 hover:opacity-100">Reviews</a>
           <a href="#contact" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">Get a Quote</a>
         </nav>
-        <button id="hamburger" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h16M3 11h16M3 16h16"/></svg>
+        <button id="hamburger" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h16M3 11h16M3 16h16"/></svg>
         </button>
       </div>
       <!-- Mobile Nav -->
@@ -144,11 +157,11 @@
       </div>
       <div class="grid gap-4 md:grid-cols-2">
         <div class="glass rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,.35)] overflow-hidden reveal parallax" data-speed="0.08">
-          <img src="crew-loading-truck.png" alt="JunkSquad crew loading items into a truck" class="w-full h-full image-crop" />
+          <img src="crew-loading-truck.png" alt="JunkSquad crew loading items into a truck" class="w-full h-full image-crop" fetchpriority="high" />
           <div class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-sm font-semibold">Same-Day Available</div>
         </div>
         <div class="glass rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,.35)] overflow-hidden reveal md:self-center parallax" data-speed="0.04">
-          <img src="clean-garage.png" alt="Clean garage after junk removal" class="w-full h-full image-crop" />
+          <img src="clean-garage.png" alt="Clean garage after junk removal" class="w-full h-full image-crop" loading="lazy" decoding="async" />
         </div>
       </div>
     </div>
@@ -242,22 +255,22 @@
     <div class="mx-auto max-w-6xl px-4">
       <h2 class="font-[Manrope] text-3xl md:text-4xl">Before & After: Recent Junk Removal Jobs</h2>
       <p class="mt-1 text-white/70">Real work from our crews in Scottsdale, Phoenix, and nearby areas.</p>
-      <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
-        <div class="hover-zoom parallax" data-speed="0.05">
-          <img src="truck-and-team.png" alt="JunkSquad truck and team ready for pickup" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal" loading="lazy" />
-        </div>
-        <div class="hover-zoom parallax" data-speed="0.03">
-          <img src="garage-cleanout.png" alt="Garage cleanout with items sorted for disposal" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal" loading="lazy" />
-        </div>
-        <div class="hover-zoom parallax" data-speed="0.07">
-          <img src="yard-waste-removal.png" alt="Yard waste and brush stacked for haul-away" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal" loading="lazy" />
-        </div>
-        <div class="hover-zoom parallax" data-speed="0.02">
-          <img src="construction-debris.png" alt="Construction debris cleanup after a remodel" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal" loading="lazy" />
-        </div>
-        <div class="hover-zoom parallax" data-speed="0.06">
-          <img src="curbside-pickup.png" alt="Curbside pickup of bulky items" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal" loading="lazy" />
-        </div>
+      <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4 md:grid-cols-5">
+        <button class="hover-zoom parallax rounded-xl" data-speed="0.05" aria-label="Open image: JunkSquad truck and team ready for pickup">
+          <img src="truck-and-team.png" alt="JunkSquad truck and team ready for pickup" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal lightboxable" loading="lazy" decoding="async" />
+        </button>
+        <button class="hover-zoom parallax rounded-xl" data-speed="0.03" aria-label="Open image: Garage cleanout with items sorted for disposal">
+          <img src="garage-cleanout.png" alt="Garage cleanout with items sorted for disposal" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal lightboxable" loading="lazy" decoding="async" />
+        </button>
+        <button class="hover-zoom parallax rounded-xl" data-speed="0.07" aria-label="Open image: Yard waste and brush stacked for haul-away">
+          <img src="yard-waste-removal.png" alt="Yard waste and brush stacked for haul-away" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal lightboxable" loading="lazy" decoding="async" />
+        </button>
+        <button class="hover-zoom parallax rounded-xl" data-speed="0.02" aria-label="Open image: Construction debris cleanup after a remodel">
+          <img src="construction-debris.png" alt="Construction debris cleanup after a remodel" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal lightboxable" loading="lazy" decoding="async" />
+        </button>
+        <button class="hover-zoom parallax rounded-xl" data-speed="0.06" aria-label="Open image: Curbside pickup of bulky items">
+          <img src="curbside-pickup.png" alt="Curbside pickup of bulky items" class="h-40 w-full rounded-xl object-cover shadow-[0_20px_40px_rgba(0,0,0,.35)] reveal lightboxable" loading="lazy" decoding="async" />
+        </button>
       </div>
     </div>
   </section>
@@ -302,7 +315,7 @@
   <footer class="border-top mt-6" style="border-top:1px solid rgba(255,255,255,.08)">
     <div class="mx-auto max-w-6xl px-4 py-10 grid gap-6 md:grid-cols-3">
       <div class="flex items-center gap-3">
-        <img src="logo.png" alt="JunkSquad logo" class="site-logo" />
+        <img src="logo.png" alt="JunkSquad logo" class="site-logo" loading="lazy" decoding="async" />
         <p class="text-white/80">Fast, friendly junk removal across Scottsdale, Phoenix & nearby areas.</p>
       </div>
       <div>
@@ -317,6 +330,20 @@
     <div class="mx-auto max-w-6xl px-4 pb-8 text-sm text-white/60">© <span id="year"></span> JunkSquad. All rights reserved.</div>
   </footer>
 
+  <!-- LIGHTBOX (accessible, zero-dependency) -->
+  <dialog id="lightbox" aria-label="Image preview">
+    <form method="dialog" class="fixed inset-0 bg-black/80 backdrop-blur-sm"></form>
+    <figure class="fixed inset-0 m-auto w-[min(92vw,1000px)] max-h-[85vh] p-2">
+      <img id="lightboxImg" alt="" class="w-full h-auto rounded-xl shadow-[0_20px_40px_rgba(0,0,0,.6)]" />
+      <figcaption id="lightboxCap" class="mt-2 text-center text-white/80 text-sm"></figcaption>
+      <button id="lightboxClose" class="absolute top-3 right-3 rounded-lg bg-white/10 hover:bg-white/20 px-3 py-2">Close</button>
+    </figure>
+    <style>
+      #lightbox { border: none; padding: 0; background: transparent; }
+      #lightbox::backdrop { background: transparent; }
+    </style>
+  </dialog>
+
   <script>
     // year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -325,8 +352,8 @@
     const btn = document.getElementById('hamburger');
     const mobile = document.getElementById('mobileNav');
     btn?.addEventListener('click', () => {
-      const open = mobile.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(!open));
+      const isHidden = mobile.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isHidden));
     });
 
     // reveal on scroll
@@ -344,42 +371,107 @@
     solidToggle();
     window.addEventListener('scroll', solidToggle, { passive: true });
 
-    // particles background
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    function size(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-    addEventListener('resize', size); size();
-    const dots = Array.from({length:50},()=>({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      vx: (Math.random()-.5)*0.3,
-      vy: (Math.random()-.5)*0.3,
-      r: Math.random()*2+1
-    }));
-    (function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(const p of dots){
-        p.x+=p.vx; p.y+=p.vy;
-        if(p.x<0||p.x>canvas.width) p.vx*=-1;
-        if(p.y<0||p.y>canvas.height) p.vy*=-1;
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle='rgba(255,255,255,0.28)'; ctx.fill();
-      }
-      requestAnimationFrame(draw);
+    // particles background (reduced-motion aware + visibility pause)
+    (function particles(){
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return; // respect reduced motion
+
+      function size(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+      addEventListener('resize', size); size();
+
+      const count = Math.max(30, Math.min(70, Math.floor(innerWidth/25)));
+      const dots = Array.from({length:count},()=>({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        vx: (Math.random()-.5)*0.3,
+        vy: (Math.random()-.5)*0.3,
+        r: Math.random()*2+1
+      }));
+
+      let running = true;
+      document.addEventListener('visibilitychange', ()=> running = !document.hidden);
+
+      (function draw(){
+        if(!running){ requestAnimationFrame(draw); return; }
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(const p of dots){
+          p.x+=p.vx; p.y+=p.vy;
+          if(p.x<0||p.x>canvas.width) p.vx*=-1;
+          if(p.y<0||p.y>canvas.height) p.vy*=-1;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle='rgba(255,255,255,0.28)'; ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      })();
     })();
 
-    // parallax (gentle, reduced-motion aware)
-    const parallaxEls = document.querySelectorAll('.parallax');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!reduceMotion){
-      window.addEventListener('scroll', ()=>{
-        const y = window.pageYOffset || 0;
-        parallaxEls.forEach(el=>{
-          const speed = parseFloat(el.dataset.speed || '0.05');
-          el.style.transform = `translateY(${y * speed}px)`;
-        });
-      }, { passive: true });
-    }
+    // parallax (gentle, reduced-motion aware + mobile safe + clamped)
+    (function parallax(){
+      const parallaxEls = document.querySelectorAll('.parallax');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const isMobile = window.matchMedia('(max-width: 767px)');
+      let onScroll = null;
+
+      function detach(){
+        if(onScroll){ window.removeEventListener('scroll', onScroll); onScroll = null; }
+        parallaxEls.forEach(el => { el.style.transform = ''; });
+      }
+
+      function attach(){
+        detach();
+        if (prefersReduced.matches || isMobile.matches) return; // disable on mobile / reduced motion
+        onScroll = () => {
+          const y = window.pageYOffset || 0;
+          parallaxEls.forEach(el => {
+            const speed = parseFloat(el.dataset.speed || '0.05');
+            const shift = Math.max(-24, Math.min(24, y * speed)); // clamp to prevent overlap
+            el.style.transform = `translateY(${shift}px)`;
+          });
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      attach();
+      prefersReduced.addEventListener?.('change', attach);
+      isMobile.addEventListener?.('change', attach);
+    })();
+
+    // Lightbox
+    (function lightbox(){
+      const dlg = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      const cap = document.getElementById('lightboxCap');
+      const closeBtn = document.getElementById('lightboxClose');
+
+      function open(src, alt){
+        img.src = src;
+        img.alt = alt || '';
+        cap.textContent = alt || '';
+        if (!dlg.open) dlg.showModal();
+      }
+
+      function close(){
+        if (dlg.open) dlg.close();
+        img.src = '';
+        img.alt = '';
+        cap.textContent = '';
+      }
+
+      document.querySelectorAll('.lightboxable').forEach(el=>{
+        // make keyboard-focusable
+        el.tabIndex = 0;
+        const wrapper = el.closest('button,[role="button"]') || el;
+        wrapper.addEventListener('click', ()=> open(el.currentSrc || el.src, el.alt));
+        wrapper.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); open(el.currentSrc || el.src, el.alt);} });
+      });
+
+      dlg.addEventListener('click', (e)=>{ if (e.target === dlg) close(); });
+      closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); close(); });
+      dlg.addEventListener('cancel', (e)=>{ e.preventDefault(); close(); }); // Esc
+    })();
   </script>
 </body>
 </html>
